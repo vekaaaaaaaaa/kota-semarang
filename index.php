@@ -189,73 +189,42 @@ include "koneksi.php";
 </section>
 <!--artile end-->
 
-  <section id="galeri" class="bg-light py-5">
-    <div class="container">
-      <h3 class="text-center fw-bold mt-5 mb-4">Galeri Ikon Kota Semarang</h3>
-      <div class="row g-4">
+  <section id="gallery" class="text-center p-5 bg-danger-subtle">
+        <div class="container">
+            <h1 class="fw-bold display-4 pb-3">Gallery</h1>
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    <?php
+                    // Panggil koneksi (biasanya di index.php sudah ada include "koneksi.php" di atas)
+                    // Jika belum ada, uncomment baris bawah ini:
+                    // include "koneksi.php";
 
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="img/lawangsewu.jpg" class="card-img-top" alt="Lawang Sewu">
-            <div class="card-body">
-              <h5 class="card-title">Lawang Sewu</h5>
-              <p class="card-text">Lawang Sewu adalah gedung bersejarah di Semarang yang awalnya berfungsi sebagai kantor pusat perusahaan kereta api swasta Hindia Belanda. Nama "Lawang Sewu" berarti "seribu pintu" karena jumlah pintu yang banyak dan jendela yang menjulang tinggi. Saat ini, gedung ini merupakan objek wisata populer yang menampilkan arsitektur kolonial dan sejarahnya, serta difungsikan sebagai museum kereta api dan tempat untuk berbagai acara.  </p>
-            </div>
-          </div>
-        </div>
+                    $sql = "SELECT * FROM galery ORDER BY tanggal DESC";
+                    $hasil = $conn->query($sql);
 
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="img/sam poo kong.webp" class="card-img-top" alt="Sam Poo Kong">
-            <div class="card-body">
-              <h5 class="card-title">Sam Poo Kong</h5>
-              <p class="card-text">Sam Poo Kong adalah sebuah kelenteng di Semarang, Jawa Tengah, yang juga dikenal sebagai Kelenteng Gedung Batu. Kelenteng ini dibangun untuk menghormati Laksamana Cheng Ho (juga disebut Sam Po) yang pernah singgah di Semarang pada abad ke-15, dan merupakan contoh akulturasi budaya Tiongkok dan Jawa. Tempat ini berfungsi sebagai tempat ibadah, tempat wisata sejarah, dan juga menjadi simbol kerukunan antarbudaya. </p>
-            </div>
-          </div>
-        </div>
+                    // Variabel untuk mengecek item pertama (agar bisa dikasih class 'active')
+                    $first_item = true;
 
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="img/gereja blenduk.jpg" class="card-img-top" alt="Gereja Blenduk">
-            <div class="card-body">
-              <h5 class="card-title">Gereja Blenduk</h5>
-              <p class="card-text">Gereja Blenduk, atau GPIB Immanuel Semarang, adalah gereja tertua di Jawa Tengah yang berdiri sejak 1753 dan menjadi ikon Kota Lama Semarang. Namanya berasal dari kubah besarnya yang berbentuk "menggembung" (blenduk). Gereja ini memiliki arsitektur unik yang menggabungkan gaya Eropa dengan sentuhan Jawa, dan pada 1894-1895 direnovasi dengan penambahan menara kembar dan kubah megah. Selain menjadi tempat ibadah, gereja ini juga menjadi objek wisata populer dan cagar budaya nasional. </p>
+                    while ($row = $hasil->fetch_assoc()) {
+                    ?>
+                        <div class="carousel-item <?php if ($first_item) { echo 'active'; $first_item = false; } ?>">
+                            <img src="img/<?= $row['gambar'] ?>" class="d-block w-100" alt="Gambar Gallery">
+                        </div>
+                    <?php
+                    }
+                    ?>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-          </div>
         </div>
-
-      </div>
-       <h3 class="text-center fw-bold mt-5 mb-4">Kuliner Khas Kota Semarang</h3>
-      <div class="row g-4 mt-3">
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="img/bandeng presto juwana.jpg" class="card-img-top" alt="Bandeng Presto">
-            <div class="card-body">
-              <h5 class="card-title">Bandeng Presto</h5>
-              <p class="card-text">Bandeng presto adalah makanan khas Indonesia yang dibuat dari ikan bandeng yang dimasak dengan metode presto, yaitu direbus dalam panci bertekanan tinggi. Proses ini membuat daging ikan menjadi lembut dan durinya lunak, sehingga lebih mudah untuk dikonsumsi. Makanan ini biasanya dibumbui dengan bawang putih, kunyit, dan garam, dan merupakan makanan khas dari Semarang. </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="img/lunpia smg.webp" class="card-img-top" alt="Lunpia">
-            <div class="card-body">
-              <h5 class="card-title">Lunpia Semarang</h5>
-              <p class="card-text">Lumpia Semarang adalah makanan khas Jawa Tengah yang berawal dari perpaduan budaya Tionghoa dan Jawa, dinamai dari kata "lun pia" (kue gulung) dalam dialek Hokkian. Awalnya dibuat oleh Tjoa Thay Joe dari Tionghoa dan Wasih dari Jawa, perpaduan isian rebung, udang, telur, dan ayam menjadi ciri khasnya, yang kemudian berkembang menjadi dua jenis utama: basah dan goreng. </p>
-            </div>
-          </div>
-        </div>
-
-       <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="img/wingko babad kereta api.jpg" class="card-img-top" alt="Wingko Babad">
-            <div class="card-body">
-              <h5 class="card-title">Wingko Babad</h5>
-              <p class="card-text">Wingko babat adalah kue tradisional Indonesia yang terbuat dari campuran kelapa parut, tepung ketan, dan gula. Kue ini memiliki tekstur kenyal, rasa manis gurih yang khas, serta aroma kelapa yang menggoda karena dipanggang. Biasanya berbentuk bundar dan menjadi oleh-oleh populer, terutama dari daerah Babat (Lamongan, Jawa Timur) dan Semarang.  </p>
-            </div>
-          </div>
-        </div>
+    </section>
  <section id="schedule" class="text-center p-5">
     <div class="container">
         <h1 class="fw-bold display-4 pb-3">Schedule</h1>
