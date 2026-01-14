@@ -224,7 +224,6 @@ include "koneksi.php";
                 </button>
             </div>
         </div>
-    </section>
  <section id="schedule" class="text-center p-5">
     <div class="container">
         <h1 class="fw-bold display-4 pb-3">Schedule</h1>
